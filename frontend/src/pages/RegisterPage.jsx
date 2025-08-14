@@ -2,13 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { FullPageLoading, DotsLoading } from "../components/Loding";
 import { useForm } from "react-hook-form";
-import Error,{Success} from "../components/Error";
-import { useNavigate } from 'react-router-dom'
-
+import Error, { Success } from "../components/Error";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const [showOtpField, setShowOtpField] = useState(false);
-
+  const navigate = useNavigate()
   const [registerError, setRegisterError] = useState({
     message: "",
     status: "",
@@ -20,7 +19,7 @@ const RegisterPage = () => {
   const [success, setSuccess] = useState({
     message: null,
     status: null,
-  })
+  });
 
   const {
     register,
@@ -29,16 +28,18 @@ const RegisterPage = () => {
   } = useForm();
 
   const onSubmitDetails = async (data) => {
-    console.log(data);
     try {
       const res = await axios.post("/api/auth/register", data);
       if (res.status === 200) {
         setRegisterError({
           message: null,
-          status: "",
+          status: null,
         });
-        console.log("register error", registerError);
       }
+      setRegisterError({
+        message: null,
+        status: null,
+      })
       setShowOtpField(true);
       console.log(data, res.data);
     } catch (error) {
@@ -53,22 +54,20 @@ const RegisterPage = () => {
   };
 
   const onSubmitOtp = async (data) => {
-    console.log(data);
     try {
       const res = await axios.post("/api/auth/register/verify-otp", data);
-      console.log(res.data)
+      console.log(res.data);
 
       if (res.status === 200) {
         setOtpError({
           message: null,
           status: "",
         });
-        setSuccess({message:res.data,status:res.status})
+        setSuccess({ message: res.data, status: res.status });
+        navigate('/')
 
       }
     } catch (error) {
-      console.log("Full error:", error);
-      console.log("Error response:", error.response?.data);
       setOtpError({
         message: error.response?.data?.message || "OTP verification failed",
         status: error.response?.status || 500,
@@ -78,7 +77,15 @@ const RegisterPage = () => {
 
   return (
     <div className="w-full min-h-screen overflow-x-hidden bg-white p-8">
-      <h1 className="text-2xl font-bold capitalize mb-6 ">Resume_Builder</h1>
+      <div className="flex justify-between">
+        <h1 className="text-2xl font-bold capitalize mb-6 ">Resume_Builder</h1>
+        <Link
+          to="/login"
+          className="border h-fit w-fit px-4 py-1 rounded-sm hover:bg-gray-300 border-gray-400 font-semibold"
+        >
+          show login
+        </Link>
+      </div>
       <div className="flex flex-col items-center justify-center bg-white px-4">
         {isSubmitting && <FullPageLoading />}
 
@@ -143,16 +150,11 @@ const RegisterPage = () => {
                     value: 5,
                     message: "Email is too short",
                   },
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Enter a valid email address",
-                  },
                 })}
-                className={`w-full px-4 py-2 border-2 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition ${
-                  errors.email
+                className={`w-full px-4 py-2 border-2 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition ${errors.email
                     ? "border-red-500 focus:ring-red-300"
                     : "border-gray-300"
-                }`}
+                  }`}
               />
 
               {errors.email && (
@@ -204,9 +206,12 @@ const RegisterPage = () => {
         {/* //=============================================================================================================================================== */}
 
         {showOtpField && (
-
           <div className="w-full max-w-md bg-white shadow-sm border border-gray-200 rounded-2xl p-6 mt-6">
-            {otpError.message ? <Error error={otpError.message} />:<Success success={success.message} />}
+            {otpError.message ? (
+              <Error error={otpError.message} />
+            ) : (
+              <Success success={success.message} />
+            )}
 
             <h3 className="font-semibold text-lg">Verify Your Email</h3>
             <p className="text-gray-500 text-sm mb-4">
@@ -230,11 +235,10 @@ const RegisterPage = () => {
                   aria-invalid={errors.inputOtp ? "true" : "false"}
                   aria-describedby={errors.inputOtp ? "otp-error" : undefined}
                   {...register("inputOtp")}
-                  className={`w-full px-4 py-2 border-2 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition ${
-                    errors.inputOtp
+                  className={`w-full px-4 py-2 border-2 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition ${errors.inputOtp
                       ? "border-red-500 focus:ring-red-300"
                       : "border-gray-300"
-                  }`}
+                    }`}
                 />
                 {/* input vlaidation error  */}
                 {errors.inputOtp && (
