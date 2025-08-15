@@ -7,12 +7,12 @@ import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
-    <div className="w-full overflow-x-hidden"> 
+    <div className="w-full overflow-x-hidden bg-gray-100 h-screen "> 
       <Routes>
         <Route
           path="/"
           element={
-            <div>
+            <div className=" w-[90%]  mx-auto min-h-screen">
               <Navbar />
               <HomePage />
             </div>
