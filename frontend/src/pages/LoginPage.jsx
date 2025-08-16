@@ -22,7 +22,7 @@ const LoginPage = () => {
    try {
     const res = await axios.post('/api/auth/login',data);
     console.log('res data',res.data,res)
-    if(res.status === 200) navigate('/')
+    if(res.status === 200) navigate('/home')
 
    } catch (error) {
     console.log(error.message)

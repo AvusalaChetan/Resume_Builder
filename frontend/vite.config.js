@@ -17,7 +17,15 @@ export default defineConfig({
       '/api/auth/login':{
         target: 'http://localhost:3000',
         changeOrigin: true,
-      }
+      },
+      '/api/auth/logout':{
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+      '/api/profile':{
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
 
     }
   }

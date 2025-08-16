@@ -8,15 +8,6 @@ const HomePage = () => {
 const navigate = useNavigate();
 
   useEffect(() => {
-    // Dummy user data
-    setUser({
-      name: "John Doe",
-      email: "john@example.com",
-      joinedDate: "2024",
-      resumeCount: 3,
-      downloads: 15,
-    });
-
     setRecentResumes([
       { id: 1, name: "Software Developer Resume", updatedAt: "2 days ago" },
       { id: 2, name: "Marketing Resume", updatedAt: "1 week ago" },
@@ -90,7 +81,7 @@ const navigate = useNavigate();
           </div>
         </div>
 
-        <div className="space-y-6 sm:hidden lg:block">
+        <div className="space-y-6 sm:hidden md:hidden lg:block">
           <ProfileCard
          user={user}
           />

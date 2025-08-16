@@ -1,13 +1,12 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { IoAddCircleOutline } from "react-icons/io5";
+
 const ProfileCard = ({ user }) => {
     const { name, email, avatar, resumeCount = 0, downloadsCount = 0, memberSince = "2024" } = user || {}
 
     return (
         <div className='w-full max-w-sm mx-auto'>
             <div className='bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow duration-300'>
-                <div className='bg-gradient-to-r from-blue-500 to-purple-600 h-24 relative'>
+                <div className='bg-gradient-to-r from-black/90 to-black/50 h-24 relative'>
                     <div className='absolute -bottom-10 left-1/2 transform -translate-x-1/2'>
                         <div className='relative'>
                             <p className=' bg-white w-20 h-20 text-3xl rounded-full border-4 border-white object-cover shadow-md flex items-center justify-center ' 
@@ -40,12 +39,6 @@ const ProfileCard = ({ user }) => {
                 </div>
 
                 <div className='p-6 space-y-3'>
-                    <Link 
-                        to="/profile" 
-                        className='w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white py-2.5 px-4 rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-200 text-center block font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
-                    >
-                        Edit Profile
-                    </Link>
                     <Link 
                         to="/create_resume" 
                         className='w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-2.5 px-4 rounded-lg hover:from-green-600 hover:to-green-700 transition-all duration-200 text-center block font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5'

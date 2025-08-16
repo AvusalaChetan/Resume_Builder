@@ -4,17 +4,27 @@ import Navbar from "./components/Navbar";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
     <div className="w-full overflow-x-hidden bg-gray-100 h-screen "> 
       <Routes>
         <Route
-          path="/"
+          path="/home"
           element={
             <div className=" w-[90%]  mx-auto min-h-screen">
               <Navbar />
               <HomePage />
+            </div>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <div className=" w-[90%]  mx-auto min-h-screen">
+              <Navbar />
+              <ProfilePage />
             </div>
           }
         />
@@ -23,7 +33,7 @@ function App() {
           element={<RegisterPage />} 
         />
         <Route 
-          path="/login" 
+          path="/" 
           element={<LoginPage />} 
         />
 
