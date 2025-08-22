@@ -28,38 +28,7 @@ const navigate = useNavigate();
             </p>
           </div>
 
-          <div className="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              Recent Resumes
-            </h3>
-            {recentResumes.length > 0 ? (
-              <div className="space-y-3">
-                {recentResumes.map((resume) => (
-                  <div
-                    key={resume.id}
-                    className="flex justify-between items-center p-4 rounded-lg border border-gray-200 hover:shadow-md transition"
-                  >
-                    <div>
-                      <h4 className="font-medium text-gray-800">{resume.name}</h4>
-                      <p className="text-sm text-gray-500">
-                        Updated {resume.updatedAt}
-                      </p>
-                    </div>
-                    <div className="flex gap-3">
-                      <button className="px-3 py-1 text-sm font-medium text-blue-600 border border-blue-500 rounded-md hover:bg-blue-50">
-                        Edit
-                      </button>
-                      <button className="px-3 py-1 text-sm font-medium text-green-600 border border-green-500 rounded-md hover:bg-green-50">
-                        Download
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500">No resumes yet. Create your first one!</p>
-            )}
-          </div>
+         
 
           <div className="bg-white shadow-lg rounded-xl p-6 border border-gray-200">
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
