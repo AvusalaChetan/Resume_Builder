@@ -6,6 +6,7 @@ import Error, { Success } from "../../components/Error";
 import { DotsLoading, FullPageLoading } from "../../components/Loding";
 
 
+
 const ResumePage1 = () => {
 
   const navigate = useNavigate();

@@ -64,7 +64,7 @@ const [message, setMessage] = useState({
             <input
               type="text"
               className="border py-2 rounded-lg px-4"
-              placeholder="add skill"
+              placeholder="add lang you know "
               {...register("skill", {
                 onChange: (e) => {
                   setNewSkill(e.target.value);

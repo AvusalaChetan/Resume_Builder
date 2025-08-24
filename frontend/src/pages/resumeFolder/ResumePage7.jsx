@@ -1,28 +1,35 @@
-import React, { useEffect, useRef } from 'react'
-import Template1 from '../resumeTemplates/Template1'
-import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas-pro'
+import { useState, useEffect, useRef } from "react";
+import Template1 from "../resumeTemplates/Template1";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas-pro";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
+
 const ResumePage7 = () => {
+  const [personalDetails, setPersonalDetails] = useState({});
+  const [name, setName] = useState("");
+  const [skills, setSkills] = useState({});
+  const [projects, setProjects] = useState([]);
+  const [certificate, setCertificate] = useState([]);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const resumeId = searchParams.get("resumeId") || "222";
-  const templateRef = useRef()
+  const templateRef = useRef();
 
   const handleClick = async () => {
     const temp = templateRef.current;
     if (!temp) {
-      console.error('Template element not found');
+      console.error("Template element not found");
       return;
     }
 
     try {
       // Force desktop layout for PDF generation
       const originalClasses = temp.className;
-      temp.className = 'w-full mx-auto bg-white shadow-lg desktop-pdf-mode';
-      
+      temp.className = "w-full mx-auto bg-white shadow-lg desktop-pdf-mode";
+
       // Add CSS to force desktop sizing
-      const style = document.createElement('style');
+      const style = document.createElement("style");
       style.textContent = `
         .desktop-pdf-mode {
           min-width: 800px !important;
@@ -52,82 +59,108 @@ const ResumePage7 = () => {
       `;
       document.head.appendChild(style);
 
-      const canvas = await html2canvas(temp, { 
+      const canvas = await html2canvas(temp, {
         scale: 2,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: "#ffffff",
         width: 800,
-        height: 1000
+        height: 1000,
       });
-      
+
       // Remove the temporary style
       document.head.removeChild(style);
-      
+
       // Restore original classes
       temp.className = originalClasses;
-      
-      const data = canvas.toDataURL('image/png');
-      
+
+      const data = canvas.toDataURL("image/png");
+
       const pdf = new jsPDF({
         orientation: "portrait",
         unit: "mm",
-        format: "a4"
+        format: "a4",
       });
 
       // A4 dimensions: 210mm x 297mm
       const pageWidth = 210;
       const pageHeight = 297;
-      
+
       // Calculate image dimensions to fit on one page
       const margin = 15; // 15mm margins
-      const imgWidth = pageWidth - (2 * margin); // 180mm
+      const imgWidth = pageWidth - 2 * margin; // 180mm
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      
+
       // If image height exceeds page height, scale it down
       let finalImgHeight = imgHeight;
       let finalImgWidth = imgWidth;
-      
-      if (imgHeight > (pageHeight - (2 * margin))) {
-        finalImgHeight = pageHeight - (2 * margin); // 267mm
+
+      if (imgHeight > pageHeight - 2 * margin) {
+        finalImgHeight = pageHeight - 2 * margin; // 267mm
         finalImgWidth = (canvas.width * finalImgHeight) / canvas.height;
       }
-      
+
       // Center the image on the page
       const xPos = (pageWidth - finalImgWidth) / 2;
       const yPos = (pageHeight - finalImgHeight) / 2;
-      
+
       // Add image to single page
       pdf.addImage(data, "PNG", xPos, yPos, finalImgWidth, finalImgHeight);
-      
+
       pdf.save("resume.pdf");
     } catch (error) {
-      console.error('Error generating PDF:', error);
-      alert('Error generating PDF. Please try again.');
+      console.error("Error generating PDF:", error);
+      alert("Error generating PDF. Please try again.");
     }
   };
 
   useEffect(() => {
-    const getData = async () =>{
-const res = await axios.get('')
-    }
+    const getData = async () => {
+      try {
+        const res = await axios.get("/api/resume");
+        console.log(res?.data);
+        console.log("res?.data?.certifications", res?.data[0]?.certifications);
 
-  }, [])
-  
+        setName(res.data[0].name);
+        setPersonalDetails(res.data[0].personal);
+        setSkills(res.data[0].skills);
+        setProjects([...projects, ...res.data[0].projects]);
+        setCertificate([...certificate, ...res?.data[0]?.certifications]);
+        console.log(res.data[0].projects);
+      } catch (error) {
+        console.log(error.message);
+        console.log(error.res?.data?.message);
+      }
+    };
+    getData();
+  }, []);
+
+  useEffect(() => {
+    // console.log("name state",name)
+    // console.log("personal state",personalDetails)
+    // console.log("skill state",skills)
+    console.log("projects state", projects);
+    console.log("certificate state", certificate);
+  }, [name, personalDetails, projects, certificate]);
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
         Choose Template
       </h1>
-      
-      {/* Resume container with ref attached */}
+
       <div
         id="final-resume"
         ref={templateRef}
         className="w-full mx-auto bg-white shadow-lg"
       >
-        <Template1 />
+        <Template1
+          personal={personalDetails}
+          name={name}
+          skills={skills}
+          projects={projects}
+          certificate={certificate}
+        />
       </div>
 
       <div className="text-center mt-8">
@@ -139,7 +172,7 @@ const res = await axios.get('')
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ResumePage7
+export default ResumePage7;
