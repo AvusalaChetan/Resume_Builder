@@ -18,7 +18,7 @@ const ResumePage3 = () => {
   const step = searchParams.get("step") || "3";
   const resumeId = searchParams.get("resumeId") || "222";
   const [educationEntries, setEducationEntries] = useState([{ id: 1 }]);
-
+ 
   const {
     register,
     handleSubmit,
