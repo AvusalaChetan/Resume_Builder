@@ -20,7 +20,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
    try {
-    const res = await axios.post('/api/auth/login',data);
+    const res = await axios.post('/api/auth/login',data,{withCredentials:true});
     console.log('res data',res.data,res)
     if(res.status === 200) navigate('/home')
 

@@ -12,7 +12,7 @@ const Navbar = () => {
       const res = await axios.get("/api/auth/logout");
       console.log(res.data)
       setIsLogin(false)
-      navigate('/')
+      navigate('/login')
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -38,7 +38,7 @@ const Navbar = () => {
             )
           })}
 
-          <button onClick={logout} className="font-semibold">{isLogin ? 'logout' : 'login'}</button>     
+          <button onClick={logout} className="font-semibold capitalize">{isLogin ? 'logout' : 'login'}</button>     
           
           <Button
             value={"create resume"}

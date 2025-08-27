@@ -1,4 +1,5 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
+import {lazy,Suspense } from 'react'
 import ResumePage1 from "./ResumePage1";
 import ResumePage2 from "./ResumePage2";
 import ResumePage3 from "./ResumePage3";
@@ -7,6 +8,8 @@ import ResumePage5 from "./ResumePage5";
 import ResumePage6 from "./ResumePage6";
 import ResumePage7 from "./ResumePage7";
 const ResumePage = () => {
+const LazyResumePage7 = lazy(() => import('./ResumePage7'))
+
     const [searchParams, setSearchParams] = useSearchParams();
     const step = searchParams.get("step") || "1"; 
     const resumeId = searchParams.get("resumeId") || null; 
@@ -30,7 +33,9 @@ const arr = [
     {step === "4" && <ResumePage4 />}
     {step === "5" && <ResumePage5 />}
     {step === "6" && <ResumePage6 />}
-    {step === "7" && <ResumePage7 />}
+    {step === "7" &&(  <Suspense fallback={<div>Loading...</div>}>
+      <LazyResumePage7 />
+    </Suspense>)}
 
       <div style={{ marginTop: "20px" }} className="flex items-center gap-6">
        {arr.map((item,idx)=>{

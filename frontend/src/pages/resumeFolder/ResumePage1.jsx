@@ -4,9 +4,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Error, { Success } from "../../components/Error";
 import { DotsLoading, FullPageLoading } from "../../components/Loding";
-
-
-
 const ResumePage1 = () => {
 
   const navigate = useNavigate();
@@ -34,7 +31,7 @@ const ResumePage1 = () => {
     } catch (error) {
       console.log(error.message)
       console.log("error data", error.response?.data);
-      setServerError(error.response?.data)
+      setServerError(error.response?.data.message)
     }
   }
   // expport
@@ -52,7 +49,7 @@ const ResumePage1 = () => {
         <h2 className="text-2xl font-bold mb-6 text-center text-red-500">Create Resume</h2>
         {serverError && (
           <div className="mt-5">
-            <Error error={serverError.message} />
+            <Error error={serverError} />
           </div>
         )}
 
