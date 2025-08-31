@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Error, { Success } from "../../components/Error";
 import axios from "axios";
 import InputField from "../../components/InputFeild";
-const ResumePage6 = () => {
+const ResumePage6 = ({ formData, setFormData }) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const resumeId = searchParams.get("resumeId") || null;
@@ -27,7 +27,6 @@ const ResumePage6 = () => {
 
     } catch (error) {
       console.log(error.message)
-      // console.log(error?.res?.data?.message)
     }
   };
 
@@ -48,7 +47,15 @@ const ResumePage6 = () => {
             {...register("course_name", {
               required: true,
               onChange: (e) => {
-                console.log(e.target.value);
+                setFormData(prev => ({
+                  ...prev,
+                  certifications: [{
+                    ...prev.certifications?.[0],
+                    courseName: e.target.value,
+                    provider: prev.certifications?.[0]?.provider || "",
+                    link: prev.certifications?.[0]?.link || ""
+                  }]
+                }));
               },
             })}
           />
@@ -59,7 +66,15 @@ const ResumePage6 = () => {
             placeholder="Enter university or provider name"
             {...register("certificate_provider", {
               onChange: (e) => {
-                console.log(e.target.value);
+                setFormData(prev => ({
+                  ...prev,
+                  certifications: [{
+                    ...prev.certifications?.[0],
+                    courseName: prev.certifications?.[0]?.courseName || "",
+                    provider: e.target.value,
+                    link: prev.certifications?.[0]?.link || ""
+                  }]
+                }));
               },
             })}
           />
@@ -70,7 +85,15 @@ const ResumePage6 = () => {
             placeholder="Enter  certificate link"
             {...register("certificate_Link", {
               onChange: (e) => {
-                console.log(e.target.value);
+                setFormData(prev => ({
+                  ...prev,
+                  certifications: [{
+                    ...prev.certifications?.[0],
+                    courseName: prev.certifications?.[0]?.courseName || "",
+                    provider: prev.certifications?.[0]?.provider || "",
+                    link: e.target.value
+                  }]
+                }));
               },
             })}
           />

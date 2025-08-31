@@ -42,7 +42,7 @@ const Navbar = () => {
           
           <Button
             value={"create resume"}
-            clickAction={() => navigate("/create_resume")}
+            onClick={() => navigate("/create_resume")}
           />
         </div>
       </nav>

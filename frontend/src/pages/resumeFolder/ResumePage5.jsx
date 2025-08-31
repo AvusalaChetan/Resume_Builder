@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Error, { Success } from "../../components/Error";
 import axios from "axios";
 
-const ResumePage5 = () => {
+const ResumePage5 = ({ formData, setFormData }) => {
   
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -17,8 +17,20 @@ const ResumePage5 = () => {
   });
 
   const handileOnClick = (newT, arrT, setfn) => {
-
-    setfn([...arrT, newT]);
+    const updatedTechStack = [...arrT, newT];
+    setfn(updatedTechStack);
+    
+    // Update formData with new tech stack
+    setFormData(prev => ({
+      ...prev,
+      projects: [{
+        ...prev.projects?.[0],
+        title: prev.projects?.[0]?.title || "",
+        link: prev.projects?.[0]?.link || "",
+        description: prev.projects?.[0]?.description || "",
+        technologies: updatedTechStack.join(', ')
+      }]
+    }));
   };
 
   const {
@@ -62,7 +74,20 @@ const ResumePage5 = () => {
               type="text"
               placeholder="Enter project name"
               className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              {...register("projectName")}
+              {...register("projectName", {
+                onChange: (e) => {
+                  setFormData(prev => ({
+                    ...prev,
+                    projects: [{
+                      ...prev.projects?.[0],
+                      title: e.target.value,
+                      link: prev.projects?.[0]?.link || "",
+                      description: prev.projects?.[0]?.description || "",
+                      technologies: techstackUsed.join(', ')
+                    }]
+                  }));
+                }
+              })}
             />
           </div>
 
@@ -74,7 +99,20 @@ const ResumePage5 = () => {
               type="text"
               placeholder="Enter live demo or GitHub repo link"
               className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              {...register("projectLink")}
+              {...register("projectLink", {
+                onChange: (e) => {
+                  setFormData(prev => ({
+                    ...prev,
+                    projects: [{
+                      ...prev.projects?.[0],
+                      title: prev.projects?.[0]?.title || "",
+                      link: e.target.value,
+                      description: prev.projects?.[0]?.description || "",
+                      technologies: techstackUsed.join(', ')
+                    }]
+                  }));
+                }
+              })}
             />
           </div>
 
@@ -86,7 +124,20 @@ const ResumePage5 = () => {
               rows="3"
               placeholder="Add description in 2–3 lines"
               className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
-              {...register("projectDescription")}
+              {...register("projectDescription", {
+                onChange: (e) => {
+                  setFormData(prev => ({
+                    ...prev,
+                    projects: [{
+                      ...prev.projects?.[0],
+                      title: prev.projects?.[0]?.title || "",
+                      link: prev.projects?.[0]?.link || "",
+                      description: e.target.value,
+                      technologies: techstackUsed.join(', ')
+                    }]
+                  }));
+                }
+              })}
             />
           </div>
 
@@ -97,9 +148,7 @@ const ResumePage5 = () => {
               </label>
               <input
                 type="text"
-                onChange={(e) => {
-                  setNewTechStack(e.target.value);
-                }}
+        
                 placeholder="Enter tech stack (e.g., React, Node.js)"
                 className="min-w-2/3 border rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-400"
                 {...register("techStackUsed", {

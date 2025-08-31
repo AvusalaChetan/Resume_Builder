@@ -1,4 +1,4 @@
-
+import "./template.css"
 const Template1 = ({
   ref,
   name,

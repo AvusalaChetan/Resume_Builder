@@ -7,7 +7,11 @@ const Error = ({ error }) => {
     </div>
   )
 }
-
+export const ErrorText = ({errortxt}) =>(
+  <>
+  <p className="text-red-500 text-sm">{errortxt}</p>
+  </>
+)
 export const Success = ({ success }) => {
   return (
     <div className="mb-4 p-3 text-green-700 border border-green-400 rounded-lg">

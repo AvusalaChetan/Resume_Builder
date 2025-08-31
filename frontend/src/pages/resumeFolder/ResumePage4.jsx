@@ -3,25 +3,30 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import  { Success } from "../../components/Error";
 import axios from "axios";
-const ResumePage4 = () => {
+
+const ResumePage4 = ({ formData, setFormData }) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const resumeId = searchParams.get("resumeId") || "222";
-  const [skills, setSkills] = useState([]);
+  const [skills, setSkills] = useState(formData.skills || []);
   const [newSkill, setNewSkill] = useState("");
-  const [techstack, setTechstack] = useState([]);
+  const [techstack, setTechstack] = useState(formData.techstack || []);
   const [newTechStack, setNewTechStack] = useState("");
 const [message, setMessage] = useState({
   error:null,
   successMessage:null
 })
 
-  const handileOnClick = (newSorT, arrSorT, setfn) => {
-    setfn([...arrSorT, newSorT]);
+  const handileOnClick = (newSorT, arrSorT, setfn, formDataKey) => {
+    const updatedArray = [...arrSorT, newSorT];
+    setfn(updatedArray);
+    setFormData({ ...formData, [formDataKey]: updatedArray });
   };
 
-  const remove = (arrSorT, removeItemIdx, setfn) => {
-    setfn(arrSorT.filter((_, idx) => idx !== removeItemIdx));
+  const remove = (arrSorT, removeItemIdx, setfn, formDataKey) => {
+    const updatedArray = arrSorT.filter((_, idx) => idx !== removeItemIdx);
+    setfn(updatedArray);
+    setFormData({ ...formData, [formDataKey]: updatedArray });
   };
 
   const {
@@ -63,18 +68,25 @@ const [message, setMessage] = useState({
           <div className="add-skill-wrappes-i/p&btn ">
             <input
               type="text"
+              value={newSkill}
               className="border py-2 rounded-lg px-4"
               placeholder="add lang you know "
               {...register("skill", {
                 onChange: (e) => {
                   setNewSkill(e.target.value);
-                  console.log(e.target.value);
+                  // Update formData skills array in real time as you type
+                  const currentSkills = Array.isArray(formData.skills) ? [...formData.skills] : [];
+                  if (e.target.value.trim()) {
+                    currentSkills[skills.length] = e.target.value;
+                  }
+                  setFormData({ ...formData, skills: currentSkills });
                 },
               })}
             />
             <button
               onClick={() => {
-                handileOnClick(newSkill, skills, setSkills);
+                handileOnClick(newSkill, skills, setSkills, 'skills');
+                setNewSkill(""); // Clear input after adding
               }}
               type="button"
               className="add ml-3 border rounded-lg px-4 py-2 capitalize"
@@ -84,24 +96,29 @@ const [message, setMessage] = useState({
             </button>
           </div>
 
-          <label className="block">add teck stack</label>
+          <label className="block">add tech stack</label>
           <div className="add-techstack-wrappes-i/p&btn ">
             <input
-              onChange={(e) => {
-                setNewTechStack(e.target.value);
-              }}
               type="text"
+              value={newTechStack}
               className="border py-2 rounded-lg px-4"
               placeholder="add teck stack"
               {...register("techStack", {
                 onChange: (e) => {
                   setNewTechStack(e.target.value);
+                  // Update formData techstack array in real time as you type
+                  const currentTechstack = Array.isArray(formData.techstack) ? [...formData.techstack] : [];
+                  if (e.target.value.trim()) {
+                    currentTechstack[techstack.length] = e.target.value;
+                  }
+                  setFormData({ ...formData, techstack: currentTechstack });
                 },
               })}
             />
             <button
               onClick={() => {
-                handileOnClick(newTechStack, techstack, setTechstack);
+                handileOnClick(newTechStack, techstack, setTechstack, 'techstack');
+                setNewTechStack(""); // Clear input after adding
               }}
               type="button"
               className="ml-3 border rounded-lg px-4 py-2 capitalize"
@@ -135,7 +152,7 @@ const [message, setMessage] = useState({
                   <p>{skill}</p>
                   <button
                     onClick={() => {
-                      remove(skills, idx, setSkills);
+                      remove(skills, idx, setSkills, 'skills');
                     }}
                     className="text-white bg-red-400 rounded-lg px-2"
                   >
@@ -161,7 +178,7 @@ const [message, setMessage] = useState({
                   <p>{skill}</p>
                   <button
                     onClick={() => {
-                      remove(techstack, idx, setTechstack);
+                      remove(techstack, idx, setTechstack, 'techstack');
                     }}
                     className="text-white bg-red-400 rounded-lg px-2"
                   >

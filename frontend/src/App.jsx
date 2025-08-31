@@ -33,7 +33,9 @@ function App() {
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/create_resume" element={<ResumePage />} />
+        <Route path="/create_resume" element={<><Navbar />
+        <ResumePage />
+</>} />
       </Routes>
     </div>
   );
