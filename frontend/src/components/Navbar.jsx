@@ -1,23 +1,34 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import axios from 'axios'
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState({});
+
+  useEffect(() => {
+    async function GetToken() {
+      try {
+        const res = await axios.get("/token");
+        setIsLogin(res.data);
+      } catch (error) {
+        console.log(error.message, error.res);
+        return error.res?.data;
+      }
+    }
+    GetToken();
+    return () => {};
+  }, []);
 
   const logout = async () => {
     try {
       const res = await axios.get("/api/auth/logout");
-      console.log(res.data)
-      setIsLogin(false)
-      navigate('/login')
+      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
-  }
-
+  };
 
   return (
     <div className="">
@@ -26,7 +37,10 @@ const Navbar = () => {
           resume_Builder
         </h1>
         <div className="flex gap-3.5 items-center justify-center">
-          {[{ name: 'home', to: '/home' }, { name: 'profile', to: '/profile' }].map((item, index) => {
+          {[
+            { name: "home", to: "/home" },
+            { name: "profile", to: "/profile" },
+          ].map((item, index) => {
             return (
               <Link
                 key={index}
@@ -35,11 +49,13 @@ const Navbar = () => {
               >
                 {item.name}
               </Link>
-            )
+            );
           })}
 
-          <button onClick={logout} className="font-semibold capitalize">{isLogin ? 'logout' : 'login'}</button>     
-          
+          <button onClick={logout} className="font-semibold capitalize">
+            {isLogin.token ? "logout" : "login"}
+          </button>
+
           <Button
             value={"create resume"}
             onClick={() => navigate("/create_resume")}

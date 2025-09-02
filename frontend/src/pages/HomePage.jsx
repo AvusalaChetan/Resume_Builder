@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import ProfileCard from "../components/ProfileCard";
 import { useNavigate } from "react-router-dom";
-import { GetTokens } from "../utils/GetToken";
+import axios from "axios";
 const HomePage = () => {
   const [user, setUser] = useState(null);
   const [Token, setToken] = useState({});
@@ -17,12 +16,17 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    const fetchToken = async () => {
-      const token = await GetTokens();
-      setToken(token || {});
-    };
-    fetchToken();
-  }, [Token]);
+    async function GetToken() {
+      try {
+        const res = await axios.get("/token");
+        setToken(res.data);
+      } catch (error) {
+        console.log(error.message, error.res);
+        return error.res?.data;
+      }
+    }
+    GetToken();
+  }, []);
 
   if (!Token.token) {
     return (

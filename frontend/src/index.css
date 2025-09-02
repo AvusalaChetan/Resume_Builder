@@ -1,3 +1,11 @@
 @import "tailwindcss";
 
-/* Your custom styles can go here */
+@font-face {
+    font-family: 'loading-font';
+    src: url('/fonts/loading.ttf') format('truetype');
+    font-weight: normal;
+    font-size: normal;
+}
+.loading-font {
+    font-family: 'loading-font', serif;
+}

@@ -80,7 +80,7 @@ const RegisterPage = () => {
       <div className="flex justify-between">
         <h1 className="text-2xl font-bold capitalize mb-6 ">Resume_Builder</h1>
         <Link
-          to="/"
+          to="/login"
           className="border h-fit w-fit px-4 py-1 rounded-sm hover:bg-gray-300 border-gray-400 font-semibold"
         >
           show login
