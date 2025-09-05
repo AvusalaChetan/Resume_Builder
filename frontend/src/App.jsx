@@ -9,11 +9,14 @@ import ResumePage from "./pages/resumeFolder/ResumePage";
 import Page404 from "./pages/Page404";
 import IntoPage from "./pages/IntoPage";
 import { LoadingPage } from "./components/Loding";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PageChange from "./animation/GSAP_effects/PageChangeAnimations";
+import LocomotiveScroll from 'locomotive-scroll';
 
 function App() {
   const [isLoading, setisLoading] = useState(true);
+
+
   useEffect(() => {
     setTimeout(() => {
       setisLoading(false);
@@ -21,7 +24,9 @@ function App() {
   }, []);
 
   return (
-    <div className="w-full bg-gray-100 overflow-x-hidden">
+    <main
+      className="w-full bg-gray-100 overflow-x-hidden"
+    >
       <Routes>
         <Route path="*" element={<Page404 />} />
         <Route
@@ -29,7 +34,9 @@ function App() {
           element={
             <div>
               {isLoading ? (
-                <LoadingPage />
+                <>
+                 <LoadingPage />
+                </>
               ) : (
                 <>
                   <PageChange>
@@ -43,7 +50,7 @@ function App() {
         <Route
           path="/home"
           element={
-            <div className="w-[90%] mx-auto min-h-screen">
+            <div className="mx-auto min-h-screen">
               <Navbar />
               <HomePage />
             </div>
@@ -70,8 +77,7 @@ function App() {
           }
         />
       </Routes>
-     
-    </div>
+    </main>
   );
 }
 

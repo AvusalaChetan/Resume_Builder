@@ -51,6 +51,7 @@ export const FullPageLoading = ({ message = "Please wait..." }) => {
   );
 };
 
+
 export const LoadingPage = () => {
   const colorRef = useRef();
   const logingcontaierRef = useRef();
