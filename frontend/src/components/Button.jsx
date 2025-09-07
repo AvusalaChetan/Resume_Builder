@@ -1,4 +1,4 @@
-
+import {Link} from 'react-router-dom'
 export const Button = ({type,bool,value,onClick}) => {
   return (
     <div>
@@ -22,4 +22,17 @@ export const Button2 = ({type,bool,value,onClick})=>(
 </>
 );
 
+export const LinkBtn =({to,value})=>(
+<>
+    <div>
+     
+     <Link
+      to={to}
+      className="border capitalize border-gray-300 px-5 py-2.5 rounded-lg hover:bg-gray-50 transition-colors duration-200 font-medium text-gray-700 shadow-sm"
+    >
+     {value}
+    </Link>
+    </div>
+</>
+);
 export default Button

@@ -4,6 +4,8 @@ import { FullPageLoading, DotsLoading } from "../components/Loding";
 import { useForm } from "react-hook-form";
 import Error, { Success } from "../components/Error";
 import { Link, useNavigate } from "react-router-dom";
+import { LinkBtn } from "../components/Button";
+import HeadingTitle from "../components/HeadingTitle";
 
 const RegisterPage = () => {
   const [showOtpField, setShowOtpField] = useState(false);
@@ -78,13 +80,8 @@ const RegisterPage = () => {
   return (
     <div className="w-full min-h-screen overflow-x-hidden bg-white p-8">
       <div className="flex justify-between">
-        <h1 className="text-2xl font-bold capitalize mb-6 ">Resume_Builder</h1>
-        <Link
-          to="/login"
-          className="border h-fit w-fit px-4 py-1 rounded-sm hover:bg-gray-300 border-gray-400 font-semibold"
-        >
-          show login
-        </Link>
+        <HeadingTitle/>
+        <LinkBtn  to="/login" value='login'/>
       </div>
       <div className="flex flex-col items-center justify-center bg-white px-4">
         {isSubmitting && <FullPageLoading />}

@@ -6,6 +6,7 @@ import { _horizontal } from "gsap/Observer";
 import Draggable from "gsap/Draggable";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import HeadingTitle from "../components/HeadingTitle";
 
 const IntoPage = () => {
   const introRef = useRef(null);
@@ -106,7 +107,7 @@ if(!requestAnimationFrameId){
       className=" min-h-screen w-full overflow-hidden bg-white relative"
     >
       <div className="h-16 flex items-center loading-font font-bold fixed backdrop-blur-xl w-full z-5 px-6">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl">Resume_Builder</h1>
+        <HeadingTitle/>
       </div>
 
       <div className="page1  h-screen w-full mx-auto flex flex-col sm:flex-row justify-center items-center gap-8 mt-16 px-4 sm:px-6 lg:px-12">

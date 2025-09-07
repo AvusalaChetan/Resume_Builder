@@ -30,24 +30,22 @@ const HomePage = () => {
 
   if (!Token.token) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="bg-white shadow-lg rounded-xl p-8 border border-red-200 max-w-md w-full text-center">
-          <h2 className="text-2xl font-bold text-red-600 mb-4">
-            cookies Expired
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+        <div className="bg-white shadow-xl rounded-2xl p-8 max-w-md w-full text-center border border-red-100">
+          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <i className="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
+          </div>
+          <h2 className="text-2xl font-bold text-red-600 mb-3">
+            Session Expired
           </h2>
-          <p className="text-gray-700 mb-6">
-            You are not authenticated or your cookies has expired.
-            <br />
-            Please <span className="font-semibold text-blue-600">
-              log in
-            </span>{" "}
-            again for security reasons.
+          <p className="text-gray-600 mb-6">
+            Your session has expired for security reasons. Please log in again to continue using Resume Builder.
           </p>
           <button
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+            className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg w-full"
             onClick={() => (window.location.href = "/login")}
           >
-            Go to Login
+            <i className="fas fa-sign-in-alt mr-2"></i>Go to Login
           </button>
         </div>
       </div>
