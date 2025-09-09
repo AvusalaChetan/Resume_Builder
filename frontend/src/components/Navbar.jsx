@@ -79,14 +79,14 @@ const Navbar = () => {
             >
               <div className="h-full w-full flex flex-col">
                 <div className="flex items-center justify-between w-[95%] mx-auto py-6">
-                  <h2 className="text-2xl md:text-4xl tracking-widest loading-font font-bold ">Resume_Builder</h2>
+                  <HeadingTitle/>
                   <button
                     className="text-black text-[3rem] md:text-[4rem] hover:text-gray-400 transition"
                     onClick={() => {
                       setIsMenuShow(false);
                     }}
                   >
-                    <IoMdClose /> {/*x*/}
+                    <IoMdClose /> 
                   </button>
                 </div>
 

@@ -65,7 +65,7 @@ useEffect(() => {
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+          {/* <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
             <div className="flex items-center justify-between">
               <h4 className="font-semibold capitalize">Identity/bio</h4>
               <button
@@ -89,8 +89,8 @@ useEffect(() => {
                 <>show bio </>
               )}
             </div>
-          </div>
-          <div className="bg-white rounded-xl shadow-lg p-6">
+          </div> */}
+          {/* <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-semibold text-gray-900 mb-4">
               Resume Statistics
             </h2>
@@ -109,9 +109,9 @@ useEffect(() => {
                 </span>
               </div>
             </div>
-          </div>
+          </div> */}
 
-          <div className="border-2 border-gray-500 absolute bottom-5 w-[80%] mx-auto bg-red-100 rounded-xl shadow-lg px-6 py-4">
+          <div className="border-2 border-gray-500  bottom-5  mx-auto mt-12 bg-red-100 rounded-xl shadow-lg px-6 py-4">
             <button
               onClick={logout}
               className=" text-red-600 font-bold text-xl flex items-center justify-start gap-2"
