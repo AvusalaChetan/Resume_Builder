@@ -1,15 +1,22 @@
 
 const InputField = ({ label, type, value, onChange, placeholder, ...res }) => (
-  <div className="flex flex-col gap-1 mt-4">
-    <label className=" font-medium capitalize text-xl">{label}</label>
-    <input
-      type={type}
-      onChange={onChange}
-      placeholder={placeholder}
-      {...res}
-      className="border p-2 rounded focus:outline-none"
+<div className="relative mt-4">
+   <label
+    className=" peer-focus:text-blue-600"
+  >
+    {label}
+  </label>
+  <input
+    type={type}
+    onChange={onChange}
+    {...res}
+    className="peer w-full border-b-2 border-gray-300 bg-transparent px-2 pt-4 pb-1 text-base text-gray-900 focus:border-blue-600 focus:outline-none"
+  placeholder={placeholder}
     />
-  </div>
+ 
+</div>
+
+
 );
 
 export const TextArea = ({ label, type, value, onChange, placeholder, ...res }) => (
@@ -19,7 +26,7 @@ export const TextArea = ({ label, type, value, onChange, placeholder, ...res }) 
       onChange={onChange}
       placeholder={placeholder}
       {...res}
-      className="border h-22 w-full mt-2"
+    className="peer w-full border-b-2 border-gray-300 bg-transparent px-2 pt-4 pb-1 text-base text-gray-900 focus:border-blue-600 focus:outline-none"
    />
   </div>
 )

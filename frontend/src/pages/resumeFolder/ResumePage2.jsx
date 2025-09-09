@@ -127,7 +127,6 @@ const ResumePage2 = ({ formData, setFormData }) => {
               </span>
             </div>
 
-            {/* About field */}
             <div className="mt-6">
               <TextArea
                 label={"About / Career Objective"}
@@ -152,30 +151,6 @@ const ResumePage2 = ({ formData, setFormData }) => {
               />
             </div>
           </form>
-
-          <div className="flex items-center justify-around mt-5">
-            <button
-              type="button"
-              onClick={() => navigate("/create_resume/")}
-              className="flex items-center gap-2 px-6 py-3 text-gray-600 border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition-all duration-300"
-            >
-              <ArrowLeftIcon className="w-5 h-5" />
-              Previous
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                navigate(
-                  `/create_resume/?step=${Number(step) + 1}&resumeId=${resumeId}`
-                )
-              }
-              className="flex items-center gap-2 px-6 py-3 text-gray-600 border-2 border-gray-300 rounded-xl hover:bg-gray-50 transition-all duration-300"
-            >
-              {isSubmitting ? "Saving..." : "Continue"}
-              <ArrowRightIcon className="w-5 h-5" />
-            </button>
-          </div>
         </div>
       </div>
     </div>

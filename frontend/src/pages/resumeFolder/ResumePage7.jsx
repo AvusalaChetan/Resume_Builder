@@ -18,7 +18,7 @@ const ResumePage7 = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const resumeId = searchParams.get("resumeId") || "222";
   const templateRef = useRef();
-const [showClose, setShowClose] = useState(false)
+  const [showClose, setShowClose] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -61,7 +61,9 @@ const [showClose, setShowClose] = useState(false)
       const pdfHeight = pageWidth * ratio;
 
       pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pdfHeight);
-      pdf.textWithLink('Portfolio', 10, pdfHeight + 10, { url: personalDetails.portfolio });
+      pdf.textWithLink("Portfolio", 10, pdfHeight + 10, {
+        url: personalDetails.portfolio,
+      });
       pdf.save(`${title}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
@@ -70,45 +72,52 @@ const [showClose, setShowClose] = useState(false)
   };
 
   return (
-    <div className="min-h-screen w-[90vw]  bg-gray-50 p-6">
- {/* work  */}
-<div className="h-full flex justify-between gap-6 flex-row-reverse">
-    <Button 
-    onClick={()=>{setShowClose(!showClose)}}
-    value={showClose ? ('x') : '-'} /> {/* work */}
-{showClose?(  <div className="w-[25vw] h-full border ">
-    <div className="flex justify-between">
-      <h3>templates</h3>
-    </div>
-    <div>
-all templates
-    </div>
-  </div>):null}
-
+    <div className="min-h-screen w-[90vw]  bg-gray-50 p-6 text-black border mx-auto">
+      <div className="h-full w-fit  flex justify-between gap-6 flex-row-reverse border mx-auto">
+        <Button // to show template
+          onClick={() => {
+            setShowClose(!showClose);
+          }}
+          value={showClose ? "x" : "o"}
+        />{" "}
+        {showClose ? (
+          <div className="w-[25vw] h-full border flex flex-col items-center">
+            <Button // to show template
+              onClick={() => {
+                setShowClose(!showClose);
+              }}
+              value={showClose ? "x" : "o"}
+            />
+            <div className="flex justify-between">
+              <h3>templates</h3>
+            </div>
+            <div>all templates</div>
+          </div>
+        ) : null}
         <div
-        id="final-resume"
-        className=" mx-auto bg-white shadow-lg"
-        style={{ width: "794px", height: "1123px", margin: 0, padding: 0 }}
-      >
-        <Template1
-          ref={templateRef}
-          personal={personalDetails}
-          name={name}
-          skills={skills}
-          projects={projects}
-          certificate={certificate}
-          education={education}
-        />
-      </div>
-</div>
-
-      <div className="mt-18"/>
-        <button
-          onClick={handleClick}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200"
+          id="final-resume"
+          className=" mx-auto bg-white shadow-lg"
+          style={{ width: "794px", height: "1123px", margin: 0, padding: 0 }}
         >
-          Download as PDF
-        </button>
+          <Template1
+            ref={templateRef}
+            personal={personalDetails}
+            name={name}
+            skills={skills}
+            projects={projects}
+            certificate={certificate}
+            education={education}
+          />
+        </div>
+      </div>
+
+      <div className="mt-18" />
+      <button
+        onClick={handleClick}
+        className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-colors duration-200"
+      >
+        Download as PDF
+      </button>
     </div>
   );
 };

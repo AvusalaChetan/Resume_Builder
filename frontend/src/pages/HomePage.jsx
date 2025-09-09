@@ -32,9 +32,6 @@ const HomePage = () => {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
         <div className="bg-white shadow-xl rounded-2xl p-8 max-w-md w-full text-center border border-red-100">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i className="fas fa-exclamation-triangle text-red-500 text-2xl"></i>
-          </div>
           <h2 className="text-2xl font-bold text-red-600 mb-3">
             Session Expired
           </h2>

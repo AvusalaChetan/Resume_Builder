@@ -212,7 +212,6 @@ const ResumePage3 = ({ formData, setFormData }) => {
                       })}
                       className="w-full px-4 py-3 border border-gray-300 rounded focus:outline-none focus:border-gray-500"
                     />
-                    <input type="checkbox" /> <label>Ongoing</label>
                   </div>
                 </div>
               </div>
@@ -227,25 +226,14 @@ const ResumePage3 = ({ formData, setFormData }) => {
               Add Another Education
             </button>
 
-            <div className="flex justify-between pt-6">
-              <button
-                type="button"
-                onClick={() =>
-                  navigate(`/create_resume/page2?step=2&resumeId=${resumeId}`)
-                }
-                className="flex items-center gap-2 px-6 py-3 text-gray-700 border border-gray-300 rounded hover:bg-gray-100"
-              >
-                <ArrowLeftIcon className="w-5 h-5" />
-                Previous
-              </button>
+            <div className="">
 
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className="flex items-center gap-2 px-8 py-3 bg-gray-800 text-white rounded hover:bg-gray-900 disabled:opacity-50"
               >
-                {isSubmitting ? "Saving..." : "Save & Continue"}
-                <ArrowRightIcon className="w-5 h-5" />
+                {isSubmitting ? "Saving..." : "Save"}
               </button>
             </div>
           </form>

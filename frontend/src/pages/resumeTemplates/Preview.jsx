@@ -21,10 +21,11 @@ const Preview = ({
     certifications
   } = formData;
 
-console.log("projects",projects)
+
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-3xl mx-auto">
-      <div className="flex items-center justify-between mb-4">
+    <div className=" bg-white rounded-xl shadow-lg px-8 py-3 w-[45vw] mx-auto">
+      <p className="text-yellow-800 bg-yellow-100 px-3 py-1 rounded-2xl mb-5"><span className="font-bold capitalize">note:</span>if your details are not shown in Preview don't worry your resume will be prepare just move  on</p>
+      <div className="flex items-center justify-between mb-4 "> 
         <h2 className="text-2xl font-bold text-gray-800">
           {name || "Your Name"}
         </h2>

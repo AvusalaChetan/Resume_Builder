@@ -5,7 +5,6 @@ import Error, { Success } from "../../components/Error";
 import axios from "axios";
 
 const ResumePage5 = ({ formData, setFormData }) => {
-  
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const resumeId = searchParams.get("resumeId") || null;
@@ -17,181 +16,200 @@ const ResumePage5 = ({ formData, setFormData }) => {
   });
 
   const handileOnClick = (newT, arrT, setfn) => {
-    const updatedTechStack = [...arrT, newT];
+    if (!newT.trim()) return;
+    const updatedTechStack = [...arrT, newT.trim()];
     setfn(updatedTechStack);
-    
-    // Update formData with new tech stack
-    setFormData(prev => ({
+
+    setFormData((prev) => ({
       ...prev,
-      projects: [{
-        ...prev.projects?.[0],
-        title: prev.projects?.[0]?.title || "",
-        link: prev.projects?.[0]?.link || "",
-        description: prev.projects?.[0]?.description || "",
-        technologies: updatedTechStack.join(', ')
-      }]
+      projects: [
+        {
+          ...prev.projects?.[0],
+          title: prev.projects?.[0]?.title || "",
+          link: prev.projects?.[0]?.link || "",
+          description: prev.projects?.[0]?.description || "",
+          technologies: updatedTechStack.join(", "),
+        },
+      ],
     }));
+    setNewTechStack("");
   };
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm();
 
   const formSubmit = async (data) => {
-
     const { projectName, projectLink, projectDescription } = data;
     const dataToDB = {
-      projectName: projectName,
-      projectLink:projectLink,
-      projectDescription:projectDescription,
-      techstackUsed:techstackUsed
+      projectName,
+      projectLink,
+      projectDescription,
+      techstackUsed,
     };
     try {
-      const res = await axios.put(`/api/resume/${resumeId}`,dataToDB);
+      const res = await axios.put(`/api/resume/${resumeId}`, dataToDB);
       console.log(res.data);
+      setMessage({ error: null, successMessage: "Project saved successfully!" });
     } catch (error) {
-      console.log(error.message);
+      setMessage({ error: error.message, successMessage: null });
     }
   };
+
   return (
-    <div>
-      <div className="border-b mb-6">
-        <h1 className="text-center text-4xl font-semibold capitalize py-4">
-          Projects
+    <div className="min-h-screen  flex flex-col items-center justify-center px-4 py-10">
+      <div className="mb-10 text-center">
+        <h1 className="text-4xl md:text-4xl font-bold  bg-clip-text  ">
+          Showcase Your Project
         </h1>
+      
       </div>
 
-      <div>
-        <form
-          onSubmit={handleSubmit(formSubmit)}
-          className="border rounded-xl px-6 py-8 flex flex-col gap-6 w-full max-w-2xl mx-auto bg-white"
-        >
-          <div className="w-full">
-            <label className="block mb-1 font-medium">Project Name</label>
-            <input
-              type="text"
-              placeholder="Enter project name"
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              {...register("projectName", {
-                onChange: (e) => {
-                  setFormData(prev => ({
-                    ...prev,
-                    projects: [{
+      <form
+        onSubmit={handleSubmit(formSubmit)}
+        className="w-full max-w-2xl bg-white/30 backdrop-blur-md border border-white/40 rounded-2xl px-8 py-10 shadow-2xl flex flex-col gap-6"
+      >
+
+        {message.successMessage && (
+          <Success success={message.successMessage} />
+        )}
+        {message.error && <Error error={message.error} />}
+
+        {/* Project Name */}
+        <div>
+          <label className="block mb-2 font-semibold ">
+            Project Name
+          </label>
+          <input
+            type="text"
+            placeholder="Enter project name"
+    className="peer w-full border-b-2 border-gray-300 bg-transparent px-2 pt-4 pb-1 text-base text-gray-900 focus:border-blue-600 focus:outline-none"
+            {...register("projectName", {
+              onChange: (e) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  projects: [
+                    {
                       ...prev.projects?.[0],
                       title: e.target.value,
                       link: prev.projects?.[0]?.link || "",
                       description: prev.projects?.[0]?.description || "",
-                      technologies: techstackUsed.join(', ')
-                    }]
-                  }));
-                }
-              })}
-            />
-          </div>
+                      technologies: techstackUsed.join(", "),
+                    },
+                  ],
+                }));
+              },
+            })}
+          />
+        </div>
 
-          <div className="w-full">
-            <label className="block mb-1 font-medium">
-              Project Link (live demo or GitHub repo link)
-            </label>
-            <input
-              type="text"
-              placeholder="Enter live demo or GitHub repo link"
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              {...register("projectLink", {
-                onChange: (e) => {
-                  setFormData(prev => ({
-                    ...prev,
-                    projects: [{
+        {/* Project Link */}
+        <div>
+          <label className="block mb-2 font-semibold">
+            Project Link
+          </label>
+          <input
+            type="text"
+            placeholder="Live demo or GitHub link"
+    className="peer w-full border-b-2 border-gray-300 bg-transparent px-2 pt-4 pb-1 text-base text-gray-900 focus:border-blue-600 focus:outline-none"
+            {...register("projectLink", {
+              onChange: (e) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  projects: [
+                    {
                       ...prev.projects?.[0],
                       title: prev.projects?.[0]?.title || "",
                       link: e.target.value,
                       description: prev.projects?.[0]?.description || "",
-                      technologies: techstackUsed.join(', ')
-                    }]
-                  }));
-                }
-              })}
-            />
-          </div>
+                      technologies: techstackUsed.join(", "),
+                    },
+                  ],
+                }));
+              },
+            })}
+          />
+        </div>
 
-          <div className="w-full">
-            <label className="block mb-1 font-medium">
-              Project Description
-            </label>
-            <textarea
-              rows="3"
-              placeholder="Add description in 2–3 lines"
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-400 resize-none"
-              {...register("projectDescription", {
-                onChange: (e) => {
-                  setFormData(prev => ({
-                    ...prev,
-                    projects: [{
+        {/* Project Description */}
+        <div>
+          <label className="block mb-2 font-semibold ">
+            Description
+          </label>
+          <textarea
+            rows="3"
+            placeholder="Brief description in 2–3 lines"
+    className="peer w-full border-b-2 border-gray-300 bg-transparent px-2 pt-4 pb-1 text-base text-gray-900 focus:border-blue-600 focus:outline-none"
+            {...register("projectDescription", {
+              onChange: (e) => {
+                setFormData((prev) => ({
+                  ...prev,
+                  projects: [
+                    {
                       ...prev.projects?.[0],
                       title: prev.projects?.[0]?.title || "",
                       link: prev.projects?.[0]?.link || "",
                       description: e.target.value,
-                      technologies: techstackUsed.join(', ')
-                    }]
-                  }));
-                }
+                      technologies: techstackUsed.join(", "),
+                    },
+                  ],
+                }));
+              },
+            })}
+          />
+        </div>
+
+        {/* Tech Stack */}
+        <div>
+          <label className="block mb-2 font-semibold ">
+            Tech Stack
+          </label>
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={newTechStack}
+              placeholder="e.g. React, Node.js"
+    className="peer w-full border-b-2 border-gray-300 bg-transparent px-2 pt-4 pb-1 text-base text-gray-900 focus:border-blue-600 focus:outline-none"
+              {...register("techStackUsed", {
+                onChange: (e) => setNewTechStack(e.target.value),
               })}
             />
+            <button
+              type="button"
+              onClick={() =>
+                handileOnClick(newTechStack, techstackUsed, setTechstackUsed)
+              }
+              className="px-6 py-2 rounded-xl  text-black font-medium shadow hover:scale-105 transition"
+            >
+              Add
+            </button>
           </div>
 
-          <div className="w-full">
-            <div className="w-full">
-              <label className="block mb-1 font-medium">
-                Tech Stack used in project
-              </label>
-              <input
-                type="text"
-        
-                placeholder="Enter tech stack (e.g., React, Node.js)"
-                className="min-w-2/3 border rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-gray-400"
-                {...register("techStackUsed", {
-                  onChange: (e) => {
-                    setNewTechStack(e.target.value);
-                  },
-                })}
-              />
-              <button
-                type="button"
-                onClick={() =>
-                  handileOnClick(newTechStack, techstackUsed, setTechstackUsed)
-                }
-                className=" border ml-2.5 px-4 py-2 rounded-lg capitalize"
+          <div className="mt-4 flex flex-wrap gap-2">
+            {techstackUsed.map((item, idx) => (
+              <span
+                key={idx}
+                className="px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-200 to-purple-200 text-sm font-medium text-gray-800 shadow"
               >
-                add
-              </button>
-            </div>
-            <div className="border mt-3">
-              <p className="text-center text-lg capitalize">
-                tech which are used
-              </p>
-              <div>
-                {techstackUsed.map((item, idx) => {
-                  return (
-                    <div key={idx} className="px-3">
-                      <p>{item}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+                {item}
+              </span>
+            ))}
           </div>
+        </div>
 
-          <div className="w-full">
-            <input
-              type="submit"
-              value="Submit"
-              className="w-full border rounded-lg px-4 py-2 bg-gray-100 cursor-pointer hover:bg-gray-200"
-            />
-          </div>
-        </form>
-      </div>
+        {/* Submit */}
+        <div>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-3 rounded-xl  font-semibold shadow-lg hover:scale-[1.02] transition-all"
+          >
+            {isSubmitting ? "Saving..." : "Save Project"}
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

@@ -31,76 +31,93 @@ const ResumePage6 = ({ formData, setFormData }) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto p-6">
-      <h1 className="text-3xl text-center mb-6 font-semibold uppercase">
-        Certifications
-      </h1>
-      <div className="border p-6 rounded-lg shadow-sm">
-        <form
-          onSubmit={handleSubmit(formSubmit)}
-          className="flex flex-col gap-4"
-        >
-          <InputField
-            label={"course name"}
-            type="text"
-            placeholder={"enter course name"}
-            {...register("course_name", {
-              required: true,
-              onChange: (e) => {
-                setFormData(prev => ({
-                  ...prev,
-                  certifications: [{
-                    ...prev.certifications?.[0],
-                    courseName: e.target.value,
-                    provider: prev.certifications?.[0]?.provider || "",
-                    link: prev.certifications?.[0]?.link || ""
-                  }]
-                }));
-              },
-            })}
-          />
+<div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-10">
+  <div className="w-full max-w-lg bg-white p-8 rounded-xl shadow">
+    {/* Heading */}
+    <h1 className="text-2xl font-bold text-gray-800 text-center mb-6 uppercase">
+      Certifications
+    </h1>
 
-          <InputField
-            label={"University / Provider"}
-            type="text"
-            placeholder="Enter university or provider name"
-            {...register("certificate_provider", {
-              onChange: (e) => {
-                setFormData(prev => ({
-                  ...prev,
-                  certifications: [{
-                    ...prev.certifications?.[0],
-                    courseName: prev.certifications?.[0]?.courseName || "",
-                    provider: e.target.value,
-                    link: prev.certifications?.[0]?.link || ""
-                  }]
-                }));
-              },
-            })}
-          />
+    {/* Form */}
+    <form onSubmit={handleSubmit(formSubmit)} className="flex flex-col gap-6">
+      {/* Course Name */}
+      <InputField
+        label="Course Name"
+        type="text"
+        placeholder="Enter course name"
+        {...register("course_name", {
+          required: true,
+          onChange: (e) => {
+            setFormData((prev) => ({
+              ...prev,
+              certifications: [
+                {
+                  ...prev.certifications?.[0],
+                  courseName: e.target.value,
+                  provider: prev.certifications?.[0]?.provider || "",
+                  link: prev.certifications?.[0]?.link || "",
+                },
+              ],
+            }));
+          },
+        })}
+      />
 
-          <InputField
-            label={"certificate Link"}
-            type="text"
-            placeholder="Enter  certificate link"
-            {...register("certificate_Link", {
-              onChange: (e) => {
-                setFormData(prev => ({
-                  ...prev,
-                  certifications: [{
-                    ...prev.certifications?.[0],
-                    courseName: prev.certifications?.[0]?.courseName || "",
-                    provider: prev.certifications?.[0]?.provider || "",
-                    link: e.target.value
-                  }]
-                }));
-              },
-            })}
-          />
-          <input type="submit" value="submit" />
-        </form>
-      </div>
-    </div>
+      {/* Provider */}
+      <InputField
+        label="University / Provider"
+        type="text"
+        placeholder="Enter university or provider name"
+        {...register("certificate_provider", {
+          onChange: (e) => {
+            setFormData((prev) => ({
+              ...prev,
+              certifications: [
+                {
+                  ...prev.certifications?.[0],
+                  courseName: prev.certifications?.[0]?.courseName || "",
+                  provider: e.target.value,
+                  link: prev.certifications?.[0]?.link || "",
+                },
+              ],
+            }));
+          },
+        })}
+      />
+
+      {/* Certificate Link */}
+      <InputField
+        label="Certificate Link"
+        type="text"
+        placeholder="Enter certificate link"
+        {...register("certificate_Link", {
+          onChange: (e) => {
+            setFormData((prev) => ({
+              ...prev,
+              certifications: [
+                {
+                  ...prev.certifications?.[0],
+                  courseName: prev.certifications?.[0]?.courseName || "",
+                  provider: prev.certifications?.[0]?.provider || "",
+                  link: e.target.value,
+                },
+              ],
+            }));
+          },
+        })}
+      />
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="w-full py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
+      >
+        Save Certification
+      </button>
+    </form>
+  </div>
+</div>
+
   );
 };
 
