@@ -228,7 +228,7 @@ if(!requestAnimationFrameId){
           </motion.div>
         </motion.div>
       </div>
-
+  
       <footer className="bg-black text-black py-6 px-6 text-center">
         <div className="max-w-5xl mx-auto">
           <p className="text-sm mb-2">
