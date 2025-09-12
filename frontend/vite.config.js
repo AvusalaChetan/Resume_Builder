@@ -7,38 +7,38 @@ export default defineConfig({
     server: {
     proxy: {
       '/api/auth/register': {
-        target: 'http://localhost:3000',
+        target: 'https://resume-builder-g1zx.onrender.com',
         changeOrigin: true,
       },
       '/api/auth/register/verify-otp': {
-        target: 'http://localhost:3000',
+        target: 'https://resume-builder-g1zx.onrender.com',
         changeOrigin: true,
       },
       '/api/auth/login':{
-        target: 'http://localhost:3000',
+        target: 'https://resume-builder-g1zx.onrender.com',
         changeOrigin: true,
       },
       '/api/auth/logout':{
-        target: 'http://localhost:3000',
+        target: 'https://resume-builder-g1zx.onrender.com',
         changeOrigin: true,
       },
       '/api/profile':{
-        target: 'http://localhost:3000',
+        target: 'https://resume-builder-g1zx.onrender.com',
         changeOrigin: true,
       },
       '/api/resume':{
-        target: 'http://localhost:3000',
+        target: 'https://resume-builder-g1zx.onrender.com',
         changeOrigin: true,
       },
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://resume-builder-g1zx.onrender.com',
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
       '/token': {
-        target: 'http://localhost:3000',
+        target: 'https://resume-builder-g1zx.onrender.com',
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
     }
   }
