@@ -1,7 +1,11 @@
 require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
 const app = express();
+app.use(cors({
+  origin: "https://68c456576f8677599c5ab8b5--1resumebuilder.netlify.app",
+  credentials: true
+}));
+
 const connectionDB = require("./config/connetion");
 const limiter = require("./middlewares/rateLiming");
 const port = process.env.PORT || 3000;
